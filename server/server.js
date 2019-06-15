@@ -1,8 +1,15 @@
+const nr = require('newrelic');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
-const port = 1000;
+const port = 3111;
+
+app.use(cors());
+app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/restaurants/:id', (req, res) => {
@@ -11,7 +18,7 @@ app.get('/restaurants/:id', (req, res) => {
 
 app.get('/api/restaurants/:id/photos', (req, res) => {
   const { id } = req.params;
-  res.redirect(`http://3.88.8.197:3000/api/restaurants/${id}/photos`);
+  res.redirect(`http://localhost:3000/api/restaurants/${id}/photos`);
 })
 
 app.get('/api/restaurants/:id/reviews', (req, res) => {
@@ -21,7 +28,7 @@ app.get('/api/restaurants/:id/reviews', (req, res) => {
 
 app.get('/api/restaurants/:id/info', (req, res) => {
   const { id } = req.params;
-  res.redirect(`http://3.16.165.5:3002/api/restaurants/${id}/info`);
+  res.redirect(`http://localhost:3002/api/restaurants/${id}/info`);
 })
 
 app.get('/api/restaurants/:id/googlereviews', (req, res) => {
